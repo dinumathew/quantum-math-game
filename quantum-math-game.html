@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Quantum Math Adventure - Multiple Choice Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .title {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .game-area {
+            margin: 30px 0;
+        }
+
+        .question-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .option-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 30px 20px;
+            border-radius: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(79, 172, 254, 0.5);
+        }
+
+        .option-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            animation: correctPulse 0.5s ease;
+        }
+
+        .option-btn.wrong {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            animation: wrongShake 0.5s ease;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .emoji-celebration {
+            position: fixed;
+            font-size: 5em;
+            pointer-events: none;
+            z-index: 1000;
+            animation: emojiFloat 2s ease-out forwards;
+        }
+
+        @keyframes emojiFloat {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) scale(1.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 999;
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .game-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(250, 112, 154, 0.4);
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(250, 112, 154, 0.6);
+        }
+
+        .control-btn.hint {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .control-btn.next {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .game-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+        }
+
+        .game-card .emoji {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .game-card .name {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .timer {
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .hint-box {
+            background: #fff3cd;
+            color: #856404;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            text-align: center;
+            border: 3px solid #ffc107;
+            display: none;
+        }
+
+        .hint-box.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .name-entry {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .name-input {
+            font-size: 1.5em;
+            padding: 15px 30px;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+        }
+
+        .result-message {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .result-message.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .result-message.success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .result-message.error {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8em;
+            }
+            .question-card {
+                font-size: 1.3em;
+                padding: 20px;
+            }
+            .option-btn {
+                font-size: 1.2em;
+                padding: 20px 15px;
+            }
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="app"></div>
+    </div>
+
+    <script>
+        // Audio Context for sound effects
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const audioCtx = new AudioContext();
+
+        // Sound Effects Functions
+        function playBusHorn() {
+            const duration = 0.5;
+            
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const osc1 = audioCtx.createOscillator();
+                    const osc2 = audioCtx.createOscillator();
+                    const osc3 = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    osc1.connect(gainNode);
+                    osc2.connect(gainNode);
+                    osc3.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    osc1.type = 'sawtooth';
+                    osc2.type = 'square';
+                    osc3.type = 'sine';
+                    
+                    osc1.frequency.setValueAtTime(80, audioCtx.currentTime);
+                    osc2.frequency.setValueAtTime(160, audioCtx.currentTime);
+                    osc3.frequency.setValueAtTime(40, audioCtx.currentTime);
+                    
+                    gainNode.gain.setValueAtTime(0.6, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                    
+                    osc1.start(audioCtx.currentTime);
+                    osc2.start(audioCtx.currentTime);
+                    osc3.start(audioCtx.currentTime);
+                    osc1.stop(audioCtx.currentTime + duration);
+                    osc2.stop(audioCtx.currentTime + duration);
+                    osc3.stop(audioCtx.currentTime + duration);
+                }, i * 150);
+            }
+        }
+
+        function playCatMeow() {
+            const duration = 0.3;
+            
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const osc1 = audioCtx.createOscillator();
+                    const osc2 = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    osc1.connect(gainNode);
+                    osc2.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    osc1.type = 'square';
+                    osc2.type = 'sawtooth';
+                    
+                    osc1.frequency.setValueAtTime(880, audioCtx.currentTime);
+                    osc1.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + duration);
+                    osc2.frequency.setValueAtTime(660, audioCtx.currentTime);
+                    osc2.frequency.exponentialRampToValueAtTime(330, audioCtx.currentTime + duration);
+                    
+                    gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                    
+                    osc1.start(audioCtx.currentTime);
+                    osc2.start(audioCtx.currentTime);
+                    osc1.stop(audioCtx.currentTime + duration);
+                    osc2.stop(audioCtx.currentTime + duration);
+                }, i * 200);
+            }
+        }
+
+        function playVictorySound() {
+            const victorySequence = [
+                [523.25, 659.25],
+                [587.33, 739.99],
+                [659.25, 830.61],
+                [783.99, 987.77]
+            ];
+            
+            victorySequence.forEach((freqs, index) => {
+                setTimeout(() => {
+                    const osc1 = audioCtx.createOscillator();
+                    const osc2 = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    osc1.connect(gainNode);
+                    osc2.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    osc1.type = 'square';
+                    osc2.type = 'triangle';
+                    osc1.frequency.setValueAtTime(freqs[0], audioCtx.currentTime);
+                    osc2.frequency.setValueAtTime(freqs[1], audioCtx.currentTime);
+                    
+                    gainNode.gain.setValueAtTime(0.4, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    
+                    osc1.start(audioCtx.currentTime);
+                    osc2.start(audioCtx.currentTime);
+                    osc1.stop(audioCtx.currentTime + 0.3);
+                    osc2.stop(audioCtx.currentTime + 0.3);
+                }, index * 120);
+            });
+        }
+
+        function playClickSound() {
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+            
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.05);
+        }
+
+        function playWhooshSound() {
+            const duration = 0.3;
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + duration);
+            
+            gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function playCheerSound() {
+            const duration = 0.8;
+            const bufferSize = audioCtx.sampleRate * duration;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+            
+            const source = audioCtx.createBufferSource();
+            const gainNode = audioCtx.createGain();
+            const filterNode = audioCtx.createBiquadFilter();
+            
+            source.buffer = buffer;
+            source.connect(filterNode);
+            filterNode.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            filterNode.type = 'bandpass';
+            filterNode.frequency.setValueAtTime(2500, audioCtx.currentTime);
+            filterNode.Q.setValueAtTime(2, audioCtx.currentTime);
+            
+            gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            
+            source.start(audioCtx.currentTime);
+            source.stop(audioCtx.currentTime + duration);
+        }
+
+        function playTimerTick() {
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
+            
+            gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+            
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + 0.05);
+        }
+
+        const gameState = {
+            screen: 'name',
+            playerName: 'Champion',
+            score: 0,
+            level: 1,
+            currentGame: null,
+            currentQuestion: null,
+            timer: 0,
+            timerInterval: null,
+            correctAnswer: null,
+            hintShown: false
+        };
+
+        const games = [
+            { id: 0, name: 'Pattern Decoder', emoji: '🧩', generator: generatePatternQuestion },
+            { id: 1, name: 'Quantum Superposition', emoji: '🔬', generator: generateSuperpositionQuestion },
+            { id: 2, name: 'Prime Factorization', emoji: '🔐', generator: generatePrimeQuestion },
+            { id: 3, name: 'Matrix Puzzle', emoji: '🔢', generator: generateMatrixQuestion },
+            { id: 4, name: 'Binary Code', emoji: '💻', generator: generateBinaryQuestion },
+            { id: 5, name: 'Quantum Probability', emoji: '🎲', generator: generateProbabilityQuestion },
+            { id: 6, name: 'Multiplication Sprint', emoji: '⚡', generator: generateMultiplicationQuestion },
+            { id: 7, name: 'Number Patterns', emoji: '🎨', generator: generateNumberPatternQuestion },
+            { id: 8, name: 'Shape Fixer', emoji: '🔷', generator: generateShapeQuestion }
+        ];
+
+        // Question Generators
+        function generatePatternQuestion() {
+            const patterns = [
+                { seq: [2, 4, 8, 16, 32], ans: 64, hint: "Powers of 2" },
+                { seq: [1, 4, 9, 16, 25], ans: 36, hint: "Perfect squares" },
+                { seq: [1, 1, 2, 3, 5, 8], ans: 13, hint: "Fibonacci sequence" },
+                { seq: [3, 6, 12, 24, 48], ans: 96, hint: "Multiply by 2" },
+                { seq: [1, 8, 27, 64, 125], ans: 216, hint: "Perfect cubes" },
+                { seq: [2, 3, 5, 7, 11], ans: 13, hint: "Prime numbers" },
+                { seq: [1, 3, 6, 10, 15], ans: 21, hint: "Triangular numbers" },
+                { seq: [5, 10, 15, 20, 25], ans: 30, hint: "Multiples of 5" }
+            ];
+
+            const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+            const question = `${pattern.seq.join(' → ')} → ???`;
+            const correctAnswer = pattern.ans;
+            const options = generateOptions(correctAnswer);
+
+            return { question, options, correctAnswer: String(correctAnswer), hint: pattern.hint };
+        }
+
+        function generateSuperpositionQuestion() {
+            const numStates = 3 + Math.floor(Math.random() * 3);
+            const states = Array.from({length: numStates}, () => 10 + Math.floor(Math.random() * 90));
+            const question = `Quantum states: ${states.join(', ')}\nFind the SUM:`;
+            const correctAnswer = states.reduce((a, b) => a + b, 0);
+            const options = generateOptions(correctAnswer);
+
+            return { question, options, correctAnswer: String(correctAnswer), hint: 'Add all quantum state values' };
+        }
+
+        function generatePrimeQuestion() {
+            const primes = [[3, 5], [3, 7], [5, 7], [3, 11], [5, 11], [7, 11], [3, 13], [7, 13]];
+            const [p1, p2] = primes[Math.floor(Math.random() * primes.length)];
+            const number = p1 * p2;
+            const question = `Prime factors of ${number}?\n(smaller × larger)`;
+            const correctAnswer = `${Math.min(p1, p2)} × ${Math.max(p1, p2)}`;
+            
+            const wrongOptions = [
+                `${p1} × ${number}`,
+                `2 × ${number/2}`,
+                `${p2} × ${number/p2}`
+            ].filter(opt => opt !== correctAnswer).slice(0, 3);
+
+            return { question, options: shuffle([correctAnswer, ...wrongOptions]), correctAnswer, hint: `Try dividing ${number} by small primes` };
+        }
+
+        function generateMatrixQuestion() {
+            const patterns = [
+                { matrix: [[2, 3, 4], [1, 5, 3], [4, 2, '?']], ans: 3, hint: "Each row sums to 9" },
+                { matrix: [[2, 4, 8], [3, 6, 12], [5, 10, '?']], ans: 20, hint: "Last = First × Second" },
+                { matrix: [[1, 2, 3], [1, 4, 9], [1, 8, '?']], ans: 27, hint: "Powers: 1, n², n³" }
+            ];
+
+            const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+            const matrixStr = pattern.matrix.map(row => row.join('  ')).join('\n');
+            const question = `Find the missing number:\n${matrixStr}`;
+            const correctAnswer = pattern.ans;
+            const options = generateOptions(correctAnswer);
+
+            return { question, options, correctAnswer: String(correctAnswer), hint: pattern.hint };
+        }
+
+        function generateBinaryQuestion() {
+            if (Math.random() > 0.5) {
+                const num = 8 + Math.floor(Math.random() * 24);
+                const binary = num.toString(2);
+                const question = `Convert ${num} to BINARY:`;
+                return { question, options: generateBinaryOptions(binary), correctAnswer: binary, hint: 'Think: 16, 8, 4, 2, 1' };
+            } else {
+                const num = 8 + Math.floor(Math.random() * 24);
+                const binary = num.toString(2);
+                const question = `Convert ${binary} to DECIMAL:`;
+                return { question, options: generateOptions(num), correctAnswer: String(num), hint: 'Add powers of 2 where you see 1' };
+            }
+        }
+
+        function generateProbabilityQuestion() {
+            const questions = [
+                { q: 'Quantum coin flipped.\nProbability of heads?', ans: '1/2', hint: '1 favorable / 2 total' },
+                { q: 'Two coins flipped.\nBoth heads?', ans: '1/4', hint: '1 favorable / 4 outcomes' },
+                { q: 'Die rolled (1-6).\nRolling 4 or higher?', ans: '1/2', hint: '3 favorable / 6 total' },
+                { q: 'Rolling an even number?\n(1-6 die)', ans: '1/2', hint: '3 even / 6 total' }
+            ];
+
+            const selected = questions[Math.floor(Math.random() * questions.length)];
+            const options = ['1/2', '1/3', '1/4', '1/6'].filter(o => o !== selected.ans);
+            options.push(selected.ans);
+
+            return { question: selected.q, options: shuffle(options), correctAnswer: selected.ans, hint: selected.hint };
+        }
+
+        function generateMultiplicationQuestion() {
+            const difficulty = Math.min(gameState.level, 5);
+            let num1, num2;
+
+            if (difficulty <= 2) {
+                num1 = 11 + Math.floor(Math.random() * 89);
+                num2 = 11 + Math.floor(Math.random() * 89);
+            } else {
+                num1 = 100 + Math.floor(Math.random() * 900);
+                num2 = 11 + Math.floor(Math.random() * 89);
+            }
+
+            const question = `${num1} × ${num2} = ?`;
+            const correctAnswer = num1 * num2;
+            const options = generateOptions(correctAnswer, correctAnswer * 0.1);
+
+            return { question, options, correctAnswer: String(correctAnswer), hint: 'Use your mental math superpower!' };
+        }
+
+        function generateNumberPatternQuestion() {
+            const patterns = [
+                { seq: [10, 20, 30, 40], ans: 50, hint: "Add 10 each time" },
+                { seq: [100, 90, 80, 70], ans: 60, hint: "Subtract 10 each time" },
+                { seq: [2, 6, 18, 54], ans: 162, hint: "Multiply by 3" },
+                { seq: [1000, 500, 250, 125], ans: 62.5, hint: "Divide by 2" }
+            ];
+
+            const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+            const question = `Continue the pattern:\n${pattern.seq.join(' → ')} → ???`;
+            const correctAnswer = pattern.ans;
+            const options = generateOptions(correctAnswer);
+
+            return { question, options, correctAnswer: String(correctAnswer), hint: pattern.hint };
+        }
+
+        function generateShapeQuestion() {
+            const shapePatterns = [
+                { pattern: '🔴 🔵 🔴 🔵 🔴 ???', ans: '🔵', options: ['🔵', '🔴', '🟡', '🟢'], hint: 'Alternating red and blue circles' },
+                { pattern: '⬛ ⬛ ⬜ ⬛ ⬛ ⬜ ???', ans: '⬛', options: ['⬛', '⬜', '🟨', '🟦'], hint: 'Two black, one white pattern' },
+                { pattern: '🔺 🔻 🔺 🔻 🔺 ???', ans: '🔻', options: ['🔻', '🔺', '🔷', '🔶'], hint: 'Alternating up and down triangles' },
+                { pattern: '🟥 🟧 🟨 🟩 🟦 ???', ans: '🟪', options: ['🟪', '🟥', '⬛', '⬜'], hint: 'Rainbow color sequence' },
+                { pattern: '⭐ ⭐ 🌟 ⭐ ⭐ 🌟 ???', ans: '⭐', options: ['⭐', '🌟', '💫', '✨'], hint: 'Two hollow, one glowing star' },
+                { pattern: '🔷 🔶 🔷 🔶 🔷 ???', ans: '🔶', options: ['🔶', '🔷', '🔸', '🔹'], hint: 'Alternating blue and orange diamonds' },
+                { pattern: '⬜ 🟨 🟧 🟥 ⬜ 🟨 ???', ans: '🟧', options: ['🟧', '⬜', '🟥', '🟨'], hint: 'Repeating sequence of 4 colors' },
+                { pattern: '🔵 🔵 🔵 🟣 🔵 🔵 ???', ans: '🔵', options: ['🔵', '🟣', '🔴', '🟢'], hint: 'Three blue, one purple pattern' }
+            ];
+
+            const selected = shapePatterns[Math.floor(Math.random() * shapePatterns.length)];
+            const question = `Fix the pattern! What shape comes next?\n\n${selected.pattern}`;
+
+            return { question, options: shuffle(selected.options), correctAnswer: selected.ans, hint: selected.hint };
+        }
+
+        // Helper Functions
+        function generateOptions(correct, variance = null) {
+            const correctStr = String(correct);
+            const correctNum = typeof correct === 'number' ? correct : parseFloat(correct);
+            const var1 = variance || Math.max(correctNum * 0.2, 5);
+            
+            const options = new Set([correctStr]);
+            
+            while (options.size < 4) {
+                const offset = (Math.random() - 0.5) * 2 * var1;
+                let wrong = Math.round(correctNum + offset);
+                if (wrong !== correctNum && wrong > 0) {
+                    options.add(String(wrong));
+                }
+            }
+            
+            return shuffle(Array.from(options));
+        }
+
+        function generateBinaryOptions(correct) {
+            const options = new Set([correct]);
+            while (options.size < 4) {
+                const wrongBin = (parseInt(correct, 2) + Math.floor(Math.random() * 10 - 5)).toString(2);
+                if (wrongBin !== correct && wrongBin.length <= correct.length + 1) {
+                    options.add(wrongBin);
+                }
+            }
+            return shuffle(Array.from(options));
+        }
+
+        function shuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // UI Rendering
+        function render() {
+            const app = document.getElementById('app');
+
+            if (gameState.screen === 'name') {
+                app.innerHTML = `
+                    <div class="name-entry">
+                        <h1 class="title">🌟 Quantum Math Adventure 🌟</h1>
+                        <p style="font-size: 1.5em; margin: 20px 0;">Welcome, Young Mathematician!</p>
+                        <input type="text" class="name-input" id="nameInput" placeholder="Enter your name..." />
+                        <br>
+                        <button class="start-btn" onclick="startGame()">Start Adventure! 🚀</button>
+                    </div>
+                `;
+            } else if (gameState.screen === 'menu') {
+                app.innerHTML = `
+                    <div class="header">
+                        <h1 class="title">🌟 Quantum Math Adventure</h1>
+                        <div class="stats">
+                            <div class="stat-box">👤 ${gameState.playerName}</div>
+                            <div class="stat-box">🏆 Score: ${gameState.score}</div>
+                            <div class="stat-box">⭐ Level: ${gameState.level}</div>
+                        </div>
+                    </div>
+                    <h2 style="text-align: center; color: #667eea; margin: 30px 0;">Choose Your Challenge:</h2>
+                    <div class="game-menu">
+                        ${games.map(game => `
+                            <div class="game-card" onclick="selectGame(${game.id})">
+                                <div class="emoji">${game.emoji}</div>
+                                <div class="name">${game.name}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else if (gameState.screen === 'playing') {
+                const q = gameState.currentQuestion;
+                const isShapeGame = gameState.currentGame === 8;
+                
+                app.innerHTML = `
+                    <div class="header">
+                        <h1 class="title">${games[gameState.currentGame].emoji} ${games[gameState.currentGame].name}</h1>
+                        <div class="stats">
+                            <div class="stat-box">👤 ${gameState.playerName}</div>
+                            <div class="stat-box">🏆 ${gameState.score}</div>
+                            <div class="stat-box">⭐ Level ${gameState.level}</div>
+                        </div>
+                    </div>
+                    <div class="timer">⏱️ Time: <span id="timerDisplay">0</span>s</div>
+                    <div class="question-card" style="${isShapeGame ? 'font-size: 3.5em; letter-spacing: 15px; padding: 50px; min-height: 250px;' : ''}">${q.question.replace(/\n/g, '<br>')}</div>
+                    <div class="hint-box" id="hintBox">💡 ${q.hint}</div>
+                    <div class="options-grid" style="${isShapeGame ? 'grid-template-columns: repeat(2, 1fr); gap: 30px;' : ''}">
+                        ${q.options.map((opt, idx) => `
+                            <button class="option-btn" onclick="selectAnswer('${opt.replace(/'/g, "\\'")}');" id="option${idx}" style="${isShapeGame ? 'font-size: 5em; padding: 60px 30px; min-height: 180px;' : ''}">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="result-message" id="resultMessage"></div>
+                    <div class="game-buttons">
+                        <button class="control-btn hint" onclick="showHint()">💡 Show Hint</button>
+                        <button class="control-btn" onclick="backToMenu()">🏠 Menu</button>
+                    </div>
+                `;
+                startTimer();
+            }
+        }
+
+        function startGame() {
+            const nameInput = document.getElementById('nameInput');
+            if (nameInput.value.trim()) {
+                gameState.playerName = nameInput.value.trim();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            playWhooshSound();
+            playCheerSound();
+            gameState.screen = 'menu';
+            render();
+        }
+
+        function selectGame(gameId) {
+            playClickSound();
+            setTimeout(() => playWhooshSound(), 100);
+            
+            gameState.currentGame = gameId;
+            gameState.currentQuestion = games[gameId].generator();
+            gameState.correctAnswer = gameState.currentQuestion.correctAnswer;
+            gameState.hintShown = false;
+            gameState.screen = 'playing';
+            render();
+        }
+
+        function startTimer() {
+            gameState.timer = 0;
+            if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+            
+            gameState.timerInterval = setInterval(() => {
+                gameState.timer++;
+                playTimerTick();
+                const display = document.getElementById('timerDisplay');
+                if (display) display.textContent = gameState.timer;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (gameState.timerInterval) {
+                clearInterval(gameState.timerInterval);
+                gameState.timerInterval = null;
+            }
+        }
+
+        function selectAnswer(answer) {
+            stopTimer();
+            
+            const userAnswer = String(answer).trim();
+            const correctAnswer = String(gameState.correctAnswer).trim();
+            
+            const isCorrect = userAnswer === correctAnswer;
+            
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.disabled = true;
+                const btnText = btn.textContent.trim();
+                if (btnText === correctAnswer) {
+                    btn.classList.add('correct');
+                } else if (btnText === userAnswer && !isCorrect) {
+                    btn.classList.add('wrong');
+                }
+            });
+
+            const resultMsg = document.getElementById('resultMessage');
+            
+            if (isCorrect) {
+                const elapsed = gameState.timer;
+                let bonus = 100;
+                let speedMsg = 'CORRECT!';
+                
+                if (elapsed < 3) {
+                    bonus = 200;
+                    speedMsg = 'LIGHTNING FAST! ⚡';
+                } else if (elapsed < 5) {
+                    bonus = 150;
+                    speedMsg = 'SUPER FAST! 🚀';
+                } else if (elapsed < 8) {
+                    bonus = 120;
+                    speedMsg = 'VERY GOOD! ✨';
+                }
+                
+                gameState.score += bonus;
+                gameState.level = Math.floor(gameState.score / 500) + 1;
+                
+                resultMsg.textContent = `✅ ${speedMsg} +${bonus} points!`;
+                resultMsg.className = 'result-message success show';
+                
+                playBusHorn();
+                setTimeout(() => playBusHorn(), 250);
+                setTimeout(() => playBusHorn(), 500);
+                setTimeout(() => playVictorySound(), 150);
+                setTimeout(() => playCheerSound(), 300);
+                setTimeout(() => playCheerSound(), 600);
+                
+                createEmojiCelebration('🚌', 5);
+                setTimeout(() => createEmojiCelebration('🎉', 3), 200);
+                setTimeout(() => createEmojiCelebration('⭐', 3), 400);
+                setTimeout(() => createEmojiCelebration('🏆', 2), 600);
+                
+                createConfetti(30);
+            } else {
+                resultMsg.textContent = `❌ Not quite! Answer: ${gameState.correctAnswer}`;
+                resultMsg.className = 'result-message error show';
+                
+                playCatMeow();
+                setTimeout(() => playCatMeow(), 250);
+                setTimeout(() => playCatMeow(), 500);
+                
+                createEmojiCelebration('😢', 2);
+                setTimeout(() => createEmojiCelebration('💔', 2), 300);
+            }
+            
+            setTimeout(() => {
+                const btnContainer = document.querySelector('.game-buttons');
+                if (btnContainer) {
+                    btnContainer.innerHTML += `
+                        <button class="control-btn next" onclick="nextQuestion()">➡️ Next Question</button>
+                    `;
+                }
+            }, 1000);
+        }
+
+        function createEmojiCelebration(emoji, count) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const emojiEl = document.createElement('div');
+                    emojiEl.className = 'emoji-celebration';
+                    emojiEl.textContent = emoji;
+                    emojiEl.style.left = Math.random() * 80 + 10 + '%';
+                    emojiEl.style.top = Math.random() * 50 + 25 + '%';
+                    document.body.appendChild(emojiEl);
+                    
+                    setTimeout(() => emojiEl.remove(), 2000);
+                }, i * 150);
+            }
+        }
+
+        function createConfetti(count) {
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe'];
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 50);
+            }
+        }
+
+        function showHint() {
+            playClickSound();
+            const hintBox = document.getElementById('hintBox');
+            if (hintBox) {
+                hintBox.classList.add('show');
+                gameState.hintShown = true;
+            }
+        }
+
+        function nextQuestion() {
+            playClickSound();
+            setTimeout(() => playWhooshSound(), 100);
+            selectGame(gameState.currentGame);
+        }
+
+        function backToMenu() {
+            playClickSound();
+            stopTimer();
+            gameState.screen = 'menu';
+            render();
+        }
+
+        render();
+    </script>
+</body>
+</html>
